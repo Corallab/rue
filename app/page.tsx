@@ -17,6 +17,7 @@ import Policies from '@/components/Policies'
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
+import apiClient from '@/utils/ApiClient'
 
 interface ApiResponse {
   // Define the structure of your API response here
@@ -75,7 +76,7 @@ export default function Home() {
     setResponse(null)
 
     try {
-      const res = await axios.post(
+      const res = await apiClient.post(
         '/api/scrape_metadata',
         {
           input_string: inputString,
