@@ -1,3 +1,5 @@
+// apiClient.ts
+
 import axios from "axios";
 
 // Create axios client with a dynamic base URL
@@ -22,7 +24,7 @@ export async function checkProdApi() {
   }
 }
 
-// Run the health check when the client is initialized
+// Run the health check on client initialization
 checkProdApi();
 
 export default apiClient;

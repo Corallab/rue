@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import apiClient from "@/utils/ApiClient"; // Import the apiClient
 
-// Define a specific type for the response object
 interface ApiResponse {
-  // Define the expected structure of the API response here
-  data: string; // You can adjust this type based on the actual response format
+  data: string;
 }
 
 interface SelectedFields {
@@ -25,14 +23,14 @@ interface SelectedFields {
 }
 
 const ApiTester: React.FC = () => {
-  const [apiKey, setApiKey] = useState<string>(""); 
-  const [secretKey, setSecretKey] = useState<string>(""); 
-  const [inputString, setInputString] = useState<string>(""); 
-  const [categories, setCategories] = useState<string>(""); 
-  const [highRiskCategories, setHighRiskCategories] = useState<string>(""); 
-  const [response, setResponse] = useState<ApiResponse | null>(null); 
-  const [loading, setLoading] = useState<boolean>(false); 
-  const [error, setError] = useState<string>(""); 
+  const [apiKey, setApiKey] = useState<string>("");
+  const [secretKey, setSecretKey] = useState<string>("");
+  const [inputString, setInputString] = useState<string>("");
+  const [categories, setCategories] = useState<string>("");
+  const [highRiskCategories, setHighRiskCategories] = useState<string>("");
+  const [response, setResponse] = useState<ApiResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
@@ -53,27 +51,6 @@ const ApiTester: React.FC = () => {
     setSelectedFields((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const [baseUrl, setBaseUrl] = useState<string>("http://127.0.0.1:5003");
-
-  useEffect(() => {
-    // Function to check production API health and update baseURL
-    const checkProdApi = async () => {
-      try {
-        const response = await axios.get("https://api.tryrue.com/api/health-check");
-        if (response.status === 200) {
-          setBaseUrl("https://api.tryrue.com");
-          console.log("Production API is reachable, using production API");
-        }
-      } catch (error) {
-        console.error("Error with production API health check:", error);
-        console.log("Using local API");
-        setBaseUrl("http://127.0.0.1:5003"); // Fallback to local if production is not reachable
-      }
-    };
-
-    checkProdApi(); // Call health check on component mount
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -81,8 +58,8 @@ const ApiTester: React.FC = () => {
     setResponse(null);
 
     try {
-      const res = await axios.post(
-        `${baseUrl}/api/scrape_metadata`,
+      const res = await apiClient.post(
+        "/api/scrape_metadata", // The API endpoint will be handled by apiClient
         {
           input_string: inputString,
           custom_categories: categories.split(",").map((cat) => cat.trim()),
@@ -104,7 +81,7 @@ const ApiTester: React.FC = () => {
       setResponse(res.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message); 
+        setError(err.message);
       } else {
         setError("Something went wrong");
       }
