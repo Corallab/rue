@@ -23,14 +23,14 @@ interface SelectedFields {
 }
 
 const ApiTester: React.FC = () => {
-  const [apiKey, setApiKey] = useState<string>("");
-  const [secretKey, setSecretKey] = useState<string>("");
-  const [inputString, setInputString] = useState<string>("");
-  const [categories, setCategories] = useState<string>("");
-  const [highRiskCategories, setHighRiskCategories] = useState<string>("");
-  const [response, setResponse] = useState<ApiResponse | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [apiKey, setApiKey] = useState<string>(""); 
+  const [secretKey, setSecretKey] = useState<string>(""); 
+  const [inputString, setInputString] = useState<string>(""); 
+  const [categories, setCategories] = useState<string>(""); 
+  const [highRiskCategories, setHighRiskCategories] = useState<string>(""); 
+  const [response, setResponse] = useState<ApiResponse | null>(null); 
+  const [loading, setLoading] = useState<boolean>(false); 
+  const [error, setError] = useState<string>(""); 
 
   const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
