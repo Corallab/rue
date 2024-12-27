@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const teamMembers = [
@@ -17,7 +17,7 @@ export default function AboutUs() {
             <CardTitle>Our Mission</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>At Rue, we're on a mission to revolutionize compliance reviews through the power of AI. We believe that by streamlining the KYB process, we can help businesses grow faster while maintaining the highest standards of regulatory compliance.</p>
+            <p>At Rue, we&apos;re on a mission to revolutionize compliance reviews through the power of AI. We believe that by streamlining the KYB process, we can help businesses grow faster while maintaining the highest standards of regulatory compliance.</p>
           </CardContent>
         </Card>
         <Card>
@@ -51,4 +51,3 @@ export default function AboutUs() {
     </div>
   )
 }
-

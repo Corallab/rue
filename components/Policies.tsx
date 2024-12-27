@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import { Brain, Shield, Workflow } from 'lucide-react'
+import { Shield, Settings, CheckCircle } from 'lucide-react'  // Replaced Gear with Settings
 import Link from 'next/link'
 
 export default function Policies() {
@@ -11,7 +11,7 @@ export default function Policies() {
           <div className="order-2 md:order-1">
             <Image
               src="/image-4.png"
-              alt="Case Management Platform"
+              alt="Automated Compliance Policies"
               width={600}
               height={400}
               className="rounded-lg shadow-xl"
@@ -19,36 +19,36 @@ export default function Policies() {
           </div>
           <div className="order-1 md:order-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-              AI-Powered Case Management Platform
+              Automate Compliance Policies for Seamless Case Workflows
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Streamline your compliance workflow with AI-generated SOPs, custom policies, and advanced security features.
+              Boost efficiency by automating case workflows with customizable compliance policies tailored to your business needs.
             </p>
             <div className="space-y-6 mb-8">
               <div className="flex items-start">
-                <Brain className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
+                <Settings className="h-6 w-6 mr-3 text-primary flex-shrink-0" />  {/* Updated icon */}
                 <div>
-                  <h3 className="font-semibold mb-1">AI-Generated SOPs</h3>
-                  <p className="text-gray-600">Automatically generate and update Standard Operating Procedures based on your compliance requirements</p>
+                  <h3 className="font-semibold mb-1">Customizable Policy Creation</h3>
+                  <p className="text-gray-600">Design and implement compliance policies that automate workflows, approvals, and task assignments with ease.</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <Workflow className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
+                <CheckCircle className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Custom Policy Automation</h3>
-                  <p className="text-gray-600">Create and enforce custom policies with automated workflows and approvals</p>
+                  <h3 className="font-semibold mb-1">Automated Case Assignments</h3>
+                  <p className="text-gray-600">Automatically assign cases to the right teams and set up approval chains to ensure smooth processes.</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Shield className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Enhanced Security</h3>
-                  <p className="text-gray-600">Enterprise-grade security with role-based access control and audit logs</p>
+                  <h3 className="font-semibold mb-1">Secure & Compliant</h3>
+                  <p className="text-gray-600">Enforce policies with enhanced security features, including audit trails and role-based access controls.</p>
                 </div>
               </div>
             </div>
             <Link href="/case-management">
-              <Button>Learn More About Case Management</Button>
+              <Button>Learn More About Automated Compliance</Button>
             </Link>
           </div>
         </div>
@@ -56,4 +56,3 @@ export default function Policies() {
     </section>
   )
 }
-

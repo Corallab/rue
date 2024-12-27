@@ -18,17 +18,38 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 
+interface ApiResponse {
+  // Define the structure of your API response here
+  [key: string]: string | boolean;
+}
+
+interface SelectedFields {
+  [key: string]: boolean;
+  type: boolean;
+  category: boolean;
+  summary: boolean;
+  categoryConfidenceScore: boolean;
+  phoneNumbers: boolean;
+  emails: boolean;
+  socialMediaLinks: boolean;
+  reviewLinks: boolean;
+  websiteMetadata: boolean;
+  url: boolean;
+  whois_data: boolean;
+  adverseMedia: boolean;
+}
+
 export default function Home() {
   const [apiKey, setApiKey] = useState('')
   const [secretKey, setSecretKey] = useState('')
   const [inputString, setInputString] = useState('')
   const [categories, setCategories] = useState('')
   const [highRiskCategories, setHighRiskCategories] = useState('')
-  const [response, setResponse] = useState<any>(null)
+  const [response, setResponse] = useState<ApiResponse | null>(null)  // Typed the response state
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')  // Typed the error state
 
-  const [selectedFields, setSelectedFields] = useState({
+  const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
     category: true,
     summary: true,
@@ -75,6 +96,7 @@ export default function Home() {
         }
       )
       setResponse(res.data)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.response?.data?.error || 'Something went wrong')
     } finally {
@@ -93,13 +115,11 @@ export default function Home() {
       <Policies />
       <Pricing />
 
-      {/* Form and Results Section with Padding and Side by Side Layout */}
       <div className="w-full bg-white p-12 rounded-lg mb-8 mx-auto max-w-5xl">
         <h1 className="text-3xl font-extrabold mb-8 text-black text-center">
           Try Our Web Presence API
         </h1>
 
-        {/* Developer Docs Link Styled as a Button with Emoji */}
         <div className="text-center mb-8 ">
           <Link
             href="/developer-docs"
@@ -109,14 +129,10 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Flexbox Layout for Form and Results */}
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Form Section */}
           <div className="w-full md:w-1/2 space-y-6">
             <form onSubmit={handleSubmit}>
-              {/* API Key Inputs */}
               <div className="space-y-6">
-                {/* API Key Input */}
                 <div>
                   <label className="block text-black font-medium mb-2">API Key</label>
                   <div className="flex items-center gap-4">
@@ -128,10 +144,10 @@ export default function Home() {
                       className="w-full p-3 rounded-md bg-gray-100 text-black border-2 border-gray-300 focus:outline-none focus:border-black shadow-md"
                     />
                     <button
-                      onClick={() =>
-                        setApiKey('staging_api_key_12345abcde67890xyz') ||
-                        setSecretKey('staging_secret_key_abcd1234xyz7890qwe')
-                      }
+                      onClick={() => {
+                        setApiKey('staging_api_key_12345abcde67890xyz');
+                        setSecretKey('staging_secret_key_abcd1234xyz7890qwe');
+                      }}
                       className="bg-white text-black px-6 py-3 rounded-md border-2 border-gray-300 w-full"
                     >
                       Use Test Keys
@@ -139,7 +155,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Secret Key Input */}
                 <div>
                   <label className="block text-black font-medium mb-2">Secret Key</label>
                   <input
@@ -151,7 +166,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Email or URL Input */}
                 <div>
                   <label className="block text-black font-medium mb-2">Email or URL</label>
                   <input
@@ -163,7 +177,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Custom Categories Input */}
                 <div>
                   <label className="block text-black font-medium mb-2">Custom Categories</label>
                   <input
@@ -175,7 +188,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* High-Risk Categories Input */}
                 <div>
                   <label className="block text-black font-medium mb-2">High-Risk Categories</label>
                   <input
@@ -187,7 +199,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Select Fields */}
                 <h2 className="text-lg font-bold mb-2 text-black">Select Fields to Return:</h2>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.keys(selectedFields).map((field) => (
@@ -202,20 +213,14 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="bg-black text-white w-full mt-6 px-6 py-3 rounded-md transition duration-300"
-                  disabled={loading}
-                >
+                <Button type="submit" className="w-full mt-6" disabled={loading}>
                   {loading ? 'Loading...' : 'Test API'}
-                </button>
+                </Button>
               </div>
             </form>
             {error && <p className="text-red-500 mt-4">{error}</p>}
           </div>
 
-          {/* API Response Section */}
           <div className="w-full md:w-1/2">
             <h2 className="text-xl font-bold mb-4 text-black">API Response</h2>
             <div className="bg-gray-900 p-6 rounded-md text-sm overflow-auto h-[600px]">
@@ -224,7 +229,7 @@ export default function Home() {
                   {JSON.stringify(response, null, 2)}
                 </SyntaxHighlighter>
               ) : (
-                <p className="text-gray-500">// Response will appear here</p>
+                <p className="text-gray-500"></p>
               )}
             </div>
           </div>

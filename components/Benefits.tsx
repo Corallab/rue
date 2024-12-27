@@ -3,18 +3,18 @@ import { Card, CardContent } from '@/components/ui/card'
 
 const benefits = [
   {
-    title: "Enhanced Due Diligence",
-    description: "Conduct thorough background checks and risk assessments on businesses with our advanced KYB tools.",
+    title: "AI-Powered Due Diligence",
+    description: "Leverage advanced AI tools to automate thorough background checks, risk assessments, and AML screening, ensuring faster and more accurate compliance reviews.",
     icon: Shield
   },
   {
-    title: "Automated Compliance",
-    description: "Stay compliant with ever-changing regulations through our automated compliance monitoring system.",
+    title: "Automated Policy Enforcement",
+    description: "Stay ahead of changing regulations with real-time automated compliance monitoring, policy enforcement, and seamless updates across your entire workflow.",
     icon: Zap
   },
   {
-    title: "Insightful Analytics",
-    description: "Gain valuable insights into your KYB processes with our comprehensive analytics and reporting tools.",
+    title: "Data-Driven Insights",
+    description: "Unlock actionable insights with our powerful analytics platform, providing you with real-time reporting, customizable dashboards, and advanced trend analysis to optimize your compliance processes.",
     icon: BarChart3
   }
 ]
@@ -24,11 +24,11 @@ export default function Benefits() {
     <section className="py-24 bg-gray-50 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-            The AI Product Suite for Compliance Reviews
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mb-4">
+            AI-Powered Compliance Automation
           </h2>
           <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            Accelerate document verification, due diligence, AML screening and more with a cutting-edge AI-driven compliance suite.
+            Accelerate compliance reviews, reduce manual effort, and optimize decision-making with our AI-driven tools, designed for speed and accuracy in regulatory compliance.
           </p>
         </div>
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 lg:gap-12 mt-12">
@@ -51,4 +51,3 @@ export default function Benefits() {
     </section>
   )
 }
-

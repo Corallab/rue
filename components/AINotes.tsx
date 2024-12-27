@@ -10,30 +10,30 @@ export default function AINotes() {
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           <div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-              Powerful Business API for Custom Categories
+              AI-Generated SOPs for Streamlined Operations
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Leverage our advanced API to create custom categories and automate your compliance workflow. Perfect for businesses that need tailored solutions.
+              Centralize your Standard Operating Procedures (SOPs) in one place, enabling employees to easily search, edit, and generate SOPs faster with AI assistance.
             </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start">
                 <Shield className="h-6 w-6 mr-2 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Custom Categories</h3>
-                  <p className="text-gray-600">Define and manage your own business categories based on your specific needs</p>
+                  <h3 className="font-semibold mb-1">Centralized SOP Management</h3>
+                  <p className="text-gray-600">Store and access all your SOPs in one secure, centralized platform, accessible from anywhere.</p>
                 </div>
               </li>
               <li className="flex items-start">
                 <Zap className="h-6 w-6 mr-2 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Real-time Processing</h3>
-                  <p className="text-gray-600">Get instant results with our high-performance API infrastructure</p>
+                  <h3 className="font-semibold mb-1">AI-Powered SOP Generation</h3>
+                  <p className="text-gray-600">Generate and update SOPs faster with AI-driven templates and content suggestions tailored to your needs.</p>
                 </div>
               </li>
             </ul>
             <Link href="/developer-docs/api-overview">
               <Button className="group">
-                Explore API Documentation
+                Learn More About AI-Generated SOPs
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -41,7 +41,7 @@ export default function AINotes() {
           <div className="relative">
             <Image
               src="/image-3.png"
-              alt="Business API Interface"
+              alt="AI-Generated SOPs Interface"
               width={600}
               height={400}
               className="rounded-lg shadow-xl"
@@ -52,4 +52,3 @@ export default function AINotes() {
     </section>
   )
 }
-

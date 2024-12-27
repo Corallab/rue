@@ -19,31 +19,31 @@ export default function CaseManagement() {
           </div>
           <div className="order-1 md:order-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-              AI-Powered Case Management Platform
+              Simplified Case Management for Faster Compliance Reviews
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Streamline your compliance workflow with AI-generated SOPs, custom policies, and advanced security features.
+              Our intuitive platform streamlines case management with automated assignments, compliance rules, and thorough KYB/KYC checks to make reviewing cases quick and efficient.
             </p>
             <div className="space-y-6 mb-8">
               <div className="flex items-start">
                 <Brain className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">AI-Generated SOPs</h3>
-                  <p className="text-gray-600">Automatically generate and update Standard Operating Procedures based on your compliance requirements</p>
+                  <h3 className="font-semibold mb-1">Automated Case Assignments</h3>
+                  <p className="text-gray-600">Assign cases to the right teams based on predefined rules and ensure smooth case processing with automated workflows.</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Workflow className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Custom Policy Automation</h3>
-                  <p className="text-gray-600">Create and enforce custom policies with automated workflows and approvals</p>
+                  <h3 className="font-semibold mb-1">Thorough KYB/KYC Checks</h3>
+                  <p className="text-gray-600">Conduct comprehensive Know Your Business (KYB) and Know Your Customer (KYC) checks to ensure compliance with industry regulations.</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Shield className="h-6 w-6 mr-3 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold mb-1">Enhanced Security</h3>
-                  <p className="text-gray-600">Enterprise-grade security with role-based access control and audit logs</p>
+                  <h3 className="font-semibold mb-1">Sanctions & Watchlist Screening</h3>
+                  <p className="text-gray-600">Automate screenings against global sanctions lists and watchlists to ensure no risks are missed in your compliance checks.</p>
                 </div>
               </div>
             </div>
@@ -56,4 +56,3 @@ export default function CaseManagement() {
     </section>
   )
 }
-

@@ -3,21 +3,42 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// Define a specific type for the response object
+interface ApiResponse {
+  // Define the expected structure of the API response here
+  data: string; // You can adjust this type based on the actual response format
+}
+
+interface SelectedFields {
+  type: boolean;
+  category: boolean;
+  summary: boolean;
+  categoryConfidenceScore: boolean;
+  phoneNumbers: boolean;
+  emails: boolean;
+  socialMediaLinks: boolean;
+  reviewLinks: boolean;
+  websiteMetadata: boolean;
+  url: boolean;
+  whois_data: boolean;
+  adverseMedia: boolean;
+}
+
 interface ApiTesterProps {
-  apiUrl: string; // URL for API endpoint
+  apiUrl: string;
 }
 
 const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
-  const [apiKey, setApiKey] = useState("");
-  const [secretKey, setSecretKey] = useState("");
-  const [inputString, setInputString] = useState("");
-  const [categories, setCategories] = useState("");
-  const [highRiskCategories, setHighRiskCategories] = useState("");
-  const [response, setResponse] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [apiKey, setApiKey] = useState<string>(""); // Explicit type for state
+  const [secretKey, setSecretKey] = useState<string>(""); // Explicit type for state
+  const [inputString, setInputString] = useState<string>(""); // Explicit type for state
+  const [categories, setCategories] = useState<string>(""); // Explicit type for state
+  const [highRiskCategories, setHighRiskCategories] = useState<string>(""); // Explicit type for state
+  const [response, setResponse] = useState<ApiResponse | null>(null); // Explicit type for response
+  const [loading, setLoading] = useState<boolean>(false); // Explicit type for loading state
+  const [error, setError] = useState<string>(""); // Explicit type for error message
 
-  const [selectedFields, setSelectedFields] = useState({
+  const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
     category: true,
     summary: true,
@@ -32,7 +53,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
     adverseMedia: true,
   });
 
-  const handleFieldChange = (field: string) => {
+  const handleFieldChange = (field: keyof SelectedFields) => {
     setSelectedFields((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
@@ -44,7 +65,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
 
     try {
       const res = await axios.post(
-        apiUrl, // The API URL is passed as a prop
+        apiUrl,
         {
           input_string: inputString,
           custom_categories: categories.split(",").map((cat) => cat.trim()),
@@ -64,11 +85,21 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
         }
       );
       setResponse(res.data);
-    } catch (err: any) {
-      setError(err.response?.data?.error || "Something went wrong");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message); // Capture the error message if it's an instance of Error
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  // Update example credentials with separate statements
+  const handleUseExampleCredentials = () => {
+    setApiKey("staging_api_key_12345abcde67890xyz");
+    setSecretKey("staging_secret_key_abcd1234xyz7890qwe");
   };
 
   return (
@@ -77,10 +108,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
         <div className="w-full md:w-1/2 bg-gray-800 p-6 rounded-md shadow-md">
           <h1 className="text-2xl font-bold mb-4">Try Our Web Presence API</h1>
           <button
-            onClick={() =>
-              setApiKey("staging_api_key_12345abcde67890xyz") ||
-              setSecretKey("staging_secret_key_abcd1234xyz7890qwe")
-            }
+            onClick={handleUseExampleCredentials}
             className="bg-blue-600 text-white px-4 py-2 rounded-md mb-4"
           >
             Use Example Credentials
@@ -113,8 +141,8 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
                 <div key={field} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={selectedFields[field]}
-                    onChange={() => handleFieldChange(field)}
+                    checked={selectedFields[field as keyof SelectedFields]}
+                    onChange={() => handleFieldChange(field as keyof SelectedFields)}
                   />
                   <label>{field}</label>
                 </div>
@@ -139,7 +167,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
                 {JSON.stringify(response, null, 2)}
               </pre>
             ) : (
-              <p className="text-gray-500">// Response will appear here</p>
+              <p className="text-gray-500">json</p>
             )}
           </div>
         </div>

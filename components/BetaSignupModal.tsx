@@ -39,8 +39,12 @@ export default function BetaSignupModal({ open, onOpenChange }: BetaSignupModalP
           origin: { y: 0.6 },
         })
       }, 1000)
-    } catch (err: any) {
-      setError('Something went wrong. Please try again.')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
     } finally {
       setLoading(false)
     }
@@ -59,8 +63,8 @@ export default function BetaSignupModal({ open, onOpenChange }: BetaSignupModalP
         {success ? (
           // Success Screen
           <div className="text-center p-6">
-            <h2 className="text-xl font-semibold text-green-600">You're In!</h2>
-            <p className="text-sm text-gray-500 mt-2">Thank you for signing up for our Beta. We'll be in touch soon!</p>
+            <h2 className="text-xl font-semibold text-green-600">You&apos;re In!</h2>
+            <p className="text-sm text-gray-500 mt-2">Thank you for signing up for our Beta. We&apos;ll be in touch soon!</p>
           </div>
         ) : (
           // Beta Signup Form

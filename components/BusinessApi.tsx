@@ -10,24 +10,31 @@ export default function BusinessApi() {
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           <div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-4">
-              Powerful Business API for Custom Categories
+              Robust Business API for Seamless Integration
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Leverage our advanced API to create custom categories and automate your compliance workflow. Perfect for businesses that need tailored solutions.
+              Harness the power of our flexible APIs to integrate custom categories, automate your workflows, and access all critical business information in one centralized place.
             </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start">
                 <Shield className="h-6 w-6 mr-2 text-primary flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold mb-1">Custom Categories</h3>
-                  <p className="text-gray-600">Define and manage your own business categories based on your specific needs</p>
+                  <p className="text-gray-600">Create and manage custom business categories tailored to your unique compliance needs</p>
                 </div>
               </li>
               <li className="flex items-start">
                 <Zap className="h-6 w-6 mr-2 text-primary flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold mb-1">Real-time Processing</h3>
-                  <p className="text-gray-600">Get instant results with our high-performance API infrastructure</p>
+                  <p className="text-gray-600">Benefit from high-performance API infrastructure that provides fast, real-time results</p>
+                </div>
+              </li>
+              <li className="flex items-start">
+                <ArrowRight className="h-6 w-6 mr-2 text-primary flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-1">Access to All Data</h3>
+                  <p className="text-gray-600">Get comprehensive and centralized access to all essential business data through a single API</p>
                 </div>
               </li>
             </ul>
@@ -52,4 +59,3 @@ export default function BusinessApi() {
     </section>
   )
 }
-

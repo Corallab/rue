@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
@@ -30,10 +30,9 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
           <Copy className="h-4 w-4 text-gray-400" />
         )}
       </button>
-      <pre className="bg-[#0f1729] p-4 rounded-lg overflow-x-auto">
+      <pre className={`bg-[#0f1729] p-4 rounded-lg overflow-x-auto language-${language}`}>
         <code className="text-gray-300 text-sm">{code}</code>
       </pre>
     </div>
   )
 }
-

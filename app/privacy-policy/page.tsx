@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
       <div className="prose max-w-none">
         <p>Last updated: {new Date().toLocaleDateString()}</p>
         <h2>1. Introduction</h2>
-        <p>Rue ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our compliance review services.</p>
+        <p>Rue (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our compliance review services.</p>
         <h2>2. Information We Collect</h2>
         <p>We collect information that you provide directly to us, such as when you create an account, use our services, or contact us for support. This may include:</p>
         <ul>
@@ -28,4 +28,3 @@ export default function PrivacyPolicy() {
     </div>
   )
 }
-
