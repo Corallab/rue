@@ -76,7 +76,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        'http://localhost:5003/api/scrape_metadata',
+        '/api/scrape_metadata',
         {
           input_string: inputString,
           custom_categories: categories.split(',').map((cat) => cat.trim()),
