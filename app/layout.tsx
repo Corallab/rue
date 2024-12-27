@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';  // Ensure Navbar is imported correctly
 import { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
+import '@/app/globals.css';
 import AnnouncementBanner from '@/components/AnnouncementBanner';
 
 const geistSans = localFont({
