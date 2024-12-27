@@ -37,6 +37,9 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-900">Contact</Link>
               </li>
+              <li>
+                <Link href="/api/status" className="text-sm text-gray-500 hover:text-gray-900">API Status</Link>
+              </li>
             </ul>
           </div>
           <div className="space-y-4">
@@ -58,4 +61,3 @@ export default function Footer() {
     </footer>
   )
 }
-

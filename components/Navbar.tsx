@@ -26,16 +26,16 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link
-                href="/developer-docs"
-                className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Developer Docs
-              </Link>
-              <Link
                 href="https://4ojamhphpgfyx8hw.vercel.app/"
                 className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
               >
-                See Demo
+                Try Demo
+              </Link>
+              <Link
+                href="https://developer.tryrue.com"
+                className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Developers
               </Link>
               <Button
                 variant="outline"
