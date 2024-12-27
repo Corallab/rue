@@ -8,13 +8,12 @@ const apiClient = axios.create({
   },
 });
 
-// Create a function to check the production API status and set the correct base URL
-async function checkProdApi() {
+// Function to check the health of the production API and set the correct base URL
+export async function checkProdApi() {
   try {
-    const response = await axios.get("https://api.tryrue.com/health-check"); // Health check endpoint for production API
+    const response = await axios.get("https://api.tryrue.com/api/health-check"); // Health check for production API
     if (response.status === 200) {
-      // Set the base URL to the production API if the health check passes
-      apiClient.defaults.baseURL = "https://api.tryrue.com"; // Use production API
+      apiClient.defaults.baseURL = "https://api.tryrue.com"; // Set to production if healthy
       console.log("Production API is reachable, using production API");
     }
   } catch (error) {
@@ -23,7 +22,7 @@ async function checkProdApi() {
   }
 }
 
-// Run the function to check the production API and adjust the base URL
+// Run the health check when the client is initialized
 checkProdApi();
 
 export default apiClient;

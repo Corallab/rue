@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Define a specific type for the response object
@@ -24,19 +24,15 @@ interface SelectedFields {
   adverseMedia: boolean;
 }
 
-interface ApiTesterProps {
-  apiUrl: string;
-}
-
-const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
-  const [apiKey, setApiKey] = useState<string>(""); // Explicit type for state
-  const [secretKey, setSecretKey] = useState<string>(""); // Explicit type for state
-  const [inputString, setInputString] = useState<string>(""); // Explicit type for state
-  const [categories, setCategories] = useState<string>(""); // Explicit type for state
-  const [highRiskCategories, setHighRiskCategories] = useState<string>(""); // Explicit type for state
-  const [response, setResponse] = useState<ApiResponse | null>(null); // Explicit type for response
-  const [loading, setLoading] = useState<boolean>(false); // Explicit type for loading state
-  const [error, setError] = useState<string>(""); // Explicit type for error message
+const ApiTester: React.FC = () => {
+  const [apiKey, setApiKey] = useState<string>(""); 
+  const [secretKey, setSecretKey] = useState<string>(""); 
+  const [inputString, setInputString] = useState<string>(""); 
+  const [categories, setCategories] = useState<string>(""); 
+  const [highRiskCategories, setHighRiskCategories] = useState<string>(""); 
+  const [response, setResponse] = useState<ApiResponse | null>(null); 
+  const [loading, setLoading] = useState<boolean>(false); 
+  const [error, setError] = useState<string>(""); 
 
   const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
@@ -57,6 +53,27 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
     setSelectedFields((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
+  const [baseUrl, setBaseUrl] = useState<string>("http://127.0.0.1:5003");
+
+  useEffect(() => {
+    // Function to check production API health and update baseURL
+    const checkProdApi = async () => {
+      try {
+        const response = await axios.get("https://api.tryrue.com/api/health-check");
+        if (response.status === 200) {
+          setBaseUrl("https://api.tryrue.com");
+          console.log("Production API is reachable, using production API");
+        }
+      } catch (error) {
+        console.error("Error with production API health check:", error);
+        console.log("Using local API");
+        setBaseUrl("http://127.0.0.1:5003"); // Fallback to local if production is not reachable
+      }
+    };
+
+    checkProdApi(); // Call health check on component mount
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -65,7 +82,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
 
     try {
       const res = await axios.post(
-        apiUrl,
+        `${baseUrl}/api/scrape_metadata`,
         {
           input_string: inputString,
           custom_categories: categories.split(",").map((cat) => cat.trim()),
@@ -87,7 +104,7 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
       setResponse(res.data);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message); // Capture the error message if it's an instance of Error
+        setError(err.message); 
       } else {
         setError("Something went wrong");
       }
@@ -96,7 +113,6 @@ const ApiTester: React.FC<ApiTesterProps> = ({ apiUrl }) => {
     }
   };
 
-  // Update example credentials with separate statements
   const handleUseExampleCredentials = () => {
     setApiKey("staging_api_key_12345abcde67890xyz");
     setSecretKey("staging_secret_key_abcd1234xyz7890qwe");
