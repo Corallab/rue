@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useState } from 'react';
 import BetaSignupModal from './BetaSignupModal';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Playfair_Display } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+// const inter = Inter({ subsets: ['latin'] });
 const playfairDisplay = Playfair_Display({ subsets: ['latin'] });
 
 export default function Navbar() {
