@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useState } from 'react';
 import BetaSignupModal from './BetaSignupModal';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
+const playfairDisplay = Playfair_Display({ subsets: ['latin'] });
 
 export default function Navbar() {
   const [showBetaModal, setShowBetaModal] = useState(false);
@@ -19,7 +20,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className={`text-2xl font-bold text-gray-800 ${inter.className}`}>
+            <Link href="/" className={`text-2xl font-bold text-gray-800 ${playfairDisplay.className}`}>
               rue
             </Link>
           </div>
