@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from "react";
-import { statusConfig } from "@/utils/config"; // Ensure paths are correctly configured
+import React, { useEffect, useState } from "react";
+import apiClient from "@/utils/ApiClient"; // Import your apiClient
 
 interface TimelineEvent {
   date: string;
@@ -11,49 +11,41 @@ interface TimelineEvent {
 
 const StatusPage = () => {
   const [status, setStatus] = useState<string>("loading");
-  const [timeline] = useState<TimelineEvent[]>(statusConfig.timeline);
+  const [timeline] = useState<TimelineEvent[]>([
+    { date: "2023-12-01", status: "All Systems Operational", description: "API was fully operational." },
+    { date: "2023-12-02", status: "Degraded Performance", description: "Intermittent delays in response time." },
+    // More events as needed...
+  ]);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const checkApiStatus = async () => {
-      const timeout = 5000; // 5 seconds timeout for each request
-
-      const fetchWithTimeout = async (url: string) => {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-        try {
-          const response = await fetch(url, { signal: controller.signal });
-          clearTimeout(timeoutId); // Clear timeout on successful response
-          return response;
-        } catch {
-          clearTimeout(timeoutId);
-          return null; // Return null if the request times out or fails
-        }
-      };
+      setStatus("loading");
+      setError("");
 
       try {
-        // First, check the production API's health
-        const prodResponse = await fetchWithTimeout(statusConfig.production.statusUrl);
-
-        if (prodResponse && prodResponse.status === 200) {
+        // Checking the production API status
+        const prodResponse = await apiClient.get("/api/health-check"); // Adjust to your actual health check endpoint
+        if (prodResponse.status === 200) {
           setStatus("healthy");
         } else {
           throw new Error("Production API is not healthy");
         }
-      } catch {
-        console.log("Error connecting to production API, trying local API");
+      } catch (err) {
+        console.log("Error connecting to production API:", err);  // Log the error
+        setError("Error connecting to production API");
 
         try {
           // Fallback to the local API health check
-          const localResponse = await fetchWithTimeout(statusConfig.local.statusUrl);
-
-          if (localResponse && localResponse.status === 200) {
+          const localResponse = await apiClient.get("/api/health-check"); // Adjust for local check
+          if (localResponse.status === 200) {
             setStatus("healthy");
           } else {
             setStatus("offline");
           }
-        } catch {
-          console.log("Error with both production and local APIs");
+        } catch (err) {
+          console.log("Error with both production and local APIs:", err);
+          setError("Error with both production and local APIs");
           setStatus("offline");
         }
       }
@@ -84,6 +76,10 @@ const StatusPage = () => {
             The API is <span className="font-extrabold">Offline</span>.
             <p className="text-lg text-gray-400 mt-2">There seems to be an issue. Please try again later.</p>
           </div>
+        )}
+
+        {error && (
+          <div className="text-xl text-red-500 mt-4">{error}</div>
         )}
 
         <div className="mt-8 space-y-4">

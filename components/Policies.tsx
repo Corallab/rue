@@ -47,8 +47,8 @@ export default function Policies() {
                 </div>
               </div>
             </div>
-            <Link href="/case-management">
-              <Button>Learn More About Automated Compliance</Button>
+            <Link href="https://4ojamhphpgfyx8hw.vercel.app/policies">
+              <Button>Check out demo</Button>
             </Link>
           </div>
         </div>

@@ -38,7 +38,7 @@ export default function BusinessApi() {
                 </div>
               </li>
             </ul>
-            <Link href="/developer-docs/api-overview">
+            <Link href="https://developer.tryrue.com/">
               <Button className="group">
                 Explore API Documentation
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

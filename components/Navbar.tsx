@@ -29,13 +29,19 @@ export default function Navbar() {
                 href="https://4ojamhphpgfyx8hw.vercel.app/"
                 className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
               >
-                Try Demo
+                Demo
               </Link>
               <Link
                 href="https://developer.tryrue.com"
                 className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Developers
+              </Link>
+              <Link
+                href="/sop"
+                className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Generate Free SOP
               </Link>
               <Button
                 variant="outline"

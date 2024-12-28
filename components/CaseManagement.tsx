@@ -47,8 +47,8 @@ export default function CaseManagement() {
                 </div>
               </div>
             </div>
-            <Link href="/case-management">
-              <Button>Learn More About Case Management</Button>
+            <Link href="https://4ojamhphpgfyx8hw.vercel.app/">
+              <Button>Check out our Case Management Demo</Button>
             </Link>
           </div>
         </div>

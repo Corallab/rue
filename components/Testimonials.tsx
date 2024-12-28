@@ -9,16 +9,16 @@ const testimonials = [
     company: "Bancoli"
   },
   {
-    quote: "Thanks to Rue&apos;s AI, we scaled our KYB process without hiring a huge team. It&apos;s a real game-changer for our business.",
+    quote: "Thanks to Rue, we scaled our KYB process without hiring a huge team. It is a real game-changer for our business.",
     author: "Eric Weingarten",
     title: "Chief Legal Officer",
     company: "Bridge.xyz"
   },
   {
-    quote: "Rue&apos;s platform has boosted our efficiency and customer satisfaction. It&apos;s the future of compliance reviews.",
+    quote: "Rue has boosted our efficiency and customer satisfaction. It is the future of compliance reviews.",
     author: "Michael Tannenbaum",
     title: "COO & CFO",
-    company: "Brex"
+    company: "Canadian Managed Services"
   }
 ]
 

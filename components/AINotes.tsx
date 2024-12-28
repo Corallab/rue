@@ -31,9 +31,9 @@ export default function AINotes() {
                 </div>
               </li>
             </ul>
-            <Link href="/developer-docs/api-overview">
+            <Link href="/sop">
               <Button className="group">
-                Learn More About AI-Generated SOPs
+                Create a free SOP now
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
