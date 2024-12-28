@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import { marked } from 'marked'; // Import the markdown-to-html converter
 import fileDownload from 'js-file-download'; // Import file download
 import { BsStars } from "react-icons/bs"; // Import the BsStars icon
-import { FaEye, FaDownload } from "react-icons/fa"; // Import the icons for view and save
+import { FaDownload } from "react-icons/fa"; // Import the icons for view and save
 
 interface ApiResponse {
   status: string;
@@ -58,7 +58,7 @@ const SOPTester: React.FC = () => {
         }
       );
       setResponse(res.data);
-      const htmlContent = marked(res.data.sop_document); // Convert Markdown to HTML
+      const htmlContent = await marked(res.data.sop_document); // Add 'await'
       setEditorContent(htmlContent); // Load SOP into the editor as HTML
     } catch (err: unknown) {
       if (err instanceof Error) {

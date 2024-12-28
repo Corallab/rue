@@ -1,9 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import BetaSignupModal from './BetaSignupModal'
 import Link from 'next/link'
 
 const pricingPlans = [
@@ -33,11 +32,6 @@ const pricingPlans = [
 ]
 
 export default function Pricing() {
-  const [showBetaModal, setShowBetaModal] = useState(false)
-
-  const openBetaModal = () => {
-    setShowBetaModal(true)
-  }
 
   return (
     <>
@@ -103,7 +97,6 @@ export default function Pricing() {
           </div>
         </div>
       </section>
-      <BetaSignupModal open={showBetaModal} onOpenChange={setShowBetaModal} />
     </>
   )
 }

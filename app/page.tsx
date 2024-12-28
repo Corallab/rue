@@ -1,34 +1,53 @@
-'use client'
+'use client';
 
-import Hero from '@/components/Hero'
-import Benefits from '@/components/Benefits'
-import Features from '@/components/Features'
-import BusinessApi from '@/components/BusinessApi'
-import CaseManagement from '@/components/CaseManagement'
-import Pricing from '@/components/Pricing'
-import Testimonials from '@/components/Testimonials'
-import Footer from '@/components/Footer'
-import { useState } from 'react'
-import axios from 'axios'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import AINotes from '@/components/AINotes'
-import Policies from '@/components/Policies'
-import { Checkbox } from "@/components/ui/checkbox"
-import Link from 'next/link'
-import { Button } from "@/components/ui/button"
+import Hero from '@/components/Hero';
+import Benefits from '@/components/Benefits';
+import Features from '@/components/Features';
+import BusinessApi from '@/components/BusinessApi';
+import CaseManagement from '@/components/CaseManagement';
+import Pricing from '@/components/Pricing';
+import Testimonials from '@/components/Testimonials';
+import Footer from '@/components/Footer';
+import { useState } from 'react';
+import axios from 'axios';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import AINotes from '@/components/AINotes';
+import Policies from '@/components/Policies';
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from 'next/link';
+import IDentityChecks from '@/components/IDentityChecks';
+
+type SelectedFields = {
+  type: boolean;
+  category: boolean;
+  summary: boolean;
+  categoryConfidenceScore: boolean;
+  phoneNumbers: boolean;
+  emails: boolean;
+  socialMediaLinks: boolean;
+  reviewLinks: boolean;
+  websiteMetadata: boolean;
+  url: boolean;
+  whois_data: boolean;
+  adverseMedia: boolean;
+};
+
+type ApiResponse = {
+  data: string;
+};
 
 export default function Home() {
-  const [apiKey, setApiKey] = useState('')
-  const [secretKey, setSecretKey] = useState('')
-  const [inputString, setInputString] = useState('')
-  const [categories, setCategories] = useState('')
-  const [highRiskCategories, setHighRiskCategories] = useState('')
-  const [response, setResponse] = useState<any>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [apiKey, setApiKey] = useState('');
+  const [secretKey, setSecretKey] = useState('');
+  const [inputString, setInputString] = useState('');
+  const [categories, setCategories] = useState('');
+  const [highRiskCategories, setHighRiskCategories] = useState('');
+  const [response, setResponse] = useState<ApiResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const [selectedFields, setSelectedFields] = useState({
+  const [selectedFields, setSelectedFields] = useState<SelectedFields>({
     type: true,
     category: true,
     summary: true,
@@ -41,17 +60,17 @@ export default function Home() {
     url: true,
     whois_data: true,
     adverseMedia: true,
-  })
+  });
 
-  const handleFieldChange = (field: string) => {
-    setSelectedFields((prev) => ({ ...prev, [field]: !prev[field] }))
-  }
+  const handleFieldChange = (field: keyof SelectedFields) => {
+    setSelectedFields((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    setResponse(null)
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setResponse(null);
 
     try {
       const res = await axios.post(
@@ -73,20 +92,23 @@ export default function Home() {
             'Content-Type': 'application/json',
           },
         }
-      )
-      setResponse(res.data)
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Something went wrong')
+      );
+      setResponse(res.data);
+    } catch (err: unknown) {
+      setError(err instanceof Error 
+        ? err.message 
+        : (err as { response?: { data?: { error?: string } } })?.response?.data?.error || 'Something went wrong');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <main className="min-h-screen bg-background w-full">
       <Hero />
       <Benefits />
       <Features />
+      <IDentityChecks />
       <BusinessApi />
       <CaseManagement />
       <AINotes />
@@ -99,11 +121,11 @@ export default function Home() {
           Try Our Web Presence API
         </h1>
         <p className="text-lg mb-8 text-center text-gray-600">
-          This is a Web Presence Business API that pulls web forensics on any business email or url and performs Adverse Media Checks across 200,000 news outlets worldwide in real-time.
+          This is a Web Presence Business API that pulls web forensics on any business email or url and performs Adverse Media Checks across 200,000 news outlets worldwide in real-time. Improve onboarding conversion rate and improve self-attested data by providing personalized suggestions to your users while they are onboarding.
         </p>
 
         {/* Developer Docs Link Styled as a Button with Emoji */}
-        <div className="text-center mb-8 ">
+        <div className="text-center mb-8">
           <Link
             href="https://developer.tryrue.com"
             className="bg-black text-white text-gray-800 hover:bg-gray-200 hover:text-gray-800 transition-all duration-200 inline-block py-2 px-6 border border-gray-300 rounded-md"
@@ -131,10 +153,10 @@ export default function Home() {
                       className="w-full p-3 rounded-md bg-gray-100 text-black border-2 border-gray-300 focus:outline-none focus:border-black shadow-md"
                     />
                     <button
-                      onClick={() =>
-                        setApiKey('staging_api_key_12345abcde67890xyz') ||
-                        setSecretKey('staging_secret_key_abcd1234xyz7890qwe')
-                      }
+                      onClick={() => {
+                        setApiKey('staging_api_key_12345abcde67890xyz');
+                        setSecretKey('staging_secret_key_abcd1234xyz7890qwe');
+                      }}
                       className="bg-white text-black px-6 py-3 rounded-md border-2 border-gray-300 w-full"
                     >
                       Use Test Keys
@@ -196,8 +218,8 @@ export default function Home() {
                   {Object.keys(selectedFields).map((field) => (
                     <div key={field} className="flex items-center space-x-2">
                       <Checkbox
-                        checked={selectedFields[field]}
-                        onCheckedChange={() => handleFieldChange(field)}
+                        checked={selectedFields[field as keyof SelectedFields]}
+                        onCheckedChange={() => handleFieldChange(field as keyof SelectedFields)}
                         className="text-black"
                       />
                       <label className="text-black">{field}</label>
@@ -227,7 +249,7 @@ export default function Home() {
                   {JSON.stringify(response, null, 2)}
                 </SyntaxHighlighter>
               ) : (
-                <p className="text-gray-500">// Response will appear here</p>
+                <p className="text-gray-500"></p>
               )}
             </div>
           </div>
@@ -237,5 +259,5 @@ export default function Home() {
       <Testimonials />
       <Footer />
     </main>
-  )
+  );
 }
