@@ -73,8 +73,12 @@ export default function Home() {
     setResponse(null);
 
     try {
+      if (!process.env.NEXT_PUBLIC_API_URL) {
+        throw new Error('API URL is not configured');
+      }
+      
       const res = await axios.post(
-        'http://localhost:5003/api/scrape_metadata',
+        process.env.NEXT_PUBLIC_API_URL,
         {
           input_string: inputString,
           custom_categories: categories.split(',').map((cat) => cat.trim()),
