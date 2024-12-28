@@ -1,13 +1,19 @@
 'use client';
 
 import React, { useState } from "react";
-import apiClient from "@/utils/ApiClient"; // Import the apiClient
-import ReactQuill from "react-quill"; // Import Quill editor
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
-import { marked } from 'marked'; // Import the markdown-to-html converter
-import fileDownload from 'js-file-download'; // Import file download
-import { BsStars } from "react-icons/bs"; // Import the BsStars icon
-import { FaDownload } from "react-icons/fa"; // Import the icons for view and save
+import apiClient from "@/utils/ApiClient";
+import { BsStars } from "react-icons/bs";
+import { FaDownload } from "react-icons/fa";
+import dynamic from 'next/dynamic';
+
+// Dynamically import ReactQuill with no SSR and its styles
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>
+});
+
+// Add CSS import at the top level - Next.js will handle it properly with 'use client'
+import 'react-quill/dist/quill.snow.css';
 
 interface ApiResponse {
   status: string;
@@ -17,14 +23,14 @@ interface ApiResponse {
 const SOPTester: React.FC = () => {
   const [apiKey, setApiKey] = useState<string>("");
   const [secretKey, setSecretKey] = useState<string>("");
-  const [inputPrompt, setInputPrompt] = useState<string>(""); // SOP input from user
+  const [inputPrompt, setInputPrompt] = useState<string>("");
   const [response, setResponse] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [editorContent, setEditorContent] = useState<string>("");
   const [selectedExample, setSelectedExample] = useState<string>("");
-  const [isEditing, setIsEditing] = useState<boolean>(false); // Editable state for Quill
-  const [isReadOnly, setIsReadOnly] = useState<boolean>(true); // To toggle non-editable state
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [showSopModal, setShowSopModal] = useState<boolean>(false);
 
   // Example prompts for dropdown
@@ -41,13 +47,13 @@ const SOPTester: React.FC = () => {
     setError("");
     setResponse(null);
 
-    const promptToSend = inputPrompt || selectedExample || null; // If no template is selected, send null or custom prompt
+    const promptToSend = inputPrompt || selectedExample || null;
 
     try {
       const res = await apiClient.post(
-        "http://127.0.0.1:5003/api/generate_sop", // Local API endpoint for testing
+        "http://127.0.0.1:5003/api/generate_sop",
         {
-          prompt: promptToSend, // Use selected example or custom prompt
+          prompt: promptToSend,
         },
         {
           headers: {
@@ -58,8 +64,16 @@ const SOPTester: React.FC = () => {
         }
       );
       setResponse(res.data);
-      const htmlContent = await marked(res.data.sop_document); // Add 'await'
-      setEditorContent(htmlContent); // Load SOP into the editor as HTML
+      
+      if (typeof window !== 'undefined') {
+        const { marked } = await import('marked');
+        const htmlContent = marked(res.data.sop_document);
+        if (typeof htmlContent === 'string') {
+          setEditorContent(htmlContent);
+        } else {
+          setEditorContent(await htmlContent);
+        }
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -76,9 +90,9 @@ const SOPTester: React.FC = () => {
     setSecretKey("staging_secret_key_abcd1234xyz7890qwe");
   };
 
-  // Export SOP as a DOC file
-  const handleExportDoc = () => {
-    if (response && response.sop_document) {
+  const handleExportDoc = async () => {
+    if (response && response.sop_document && typeof window !== 'undefined') {
+      const fileDownload = (await import('js-file-download')).default;
       const doc = `
         <html>
           <head><title>SOP</title></head>
@@ -93,10 +107,9 @@ const SOPTester: React.FC = () => {
     }
   };
 
-  // Toggle between editable and read-only mode
   const toggleEdit = () => {
     setIsEditing(!isEditing);
-    setIsReadOnly(!isReadOnly); // Toggle non-editable mode
+    setIsReadOnly(!isReadOnly);
   };
 
   const handleSopModal = () => setShowSopModal(!showSopModal);
@@ -130,7 +143,7 @@ const SOPTester: React.FC = () => {
             {/* SOP Prompt Input */}
             <div>
               <select
-                className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" // Added padding-right to avoid icon squishing
+                className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                 onChange={(e) => setSelectedExample(e.target.value)}
               >
                 <option value="">Select a Predefined SOP</option>
@@ -139,7 +152,7 @@ const SOPTester: React.FC = () => {
                     {prompt}
                   </option>
                 ))}
-                <option value="">I do not need a template</option> {/* Option for no template */}
+                <option value="">I do not need a template</option>
               </select>
             </div>
 
