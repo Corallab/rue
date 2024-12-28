@@ -7,13 +7,17 @@ import { FaDownload } from "react-icons/fa";
 import dynamic from 'next/dynamic';
 
 // Dynamically import ReactQuill with no SSR and its styles
-const ReactQuill = dynamic(() => import('react-quill'), {
+const ReactQuill = dynamic(async () => {
+  const { default: RQ } = await import('react-quill');
+  // Import styles only on client side
+  if (typeof window !== 'undefined') {
+    await import('react-quill/dist/quill.snow.css');
+  }
+  return RQ;
+}, {
   ssr: false,
   loading: () => <p>Loading editor...</p>
 });
-
-// Add CSS import at the top level - Next.js will handle it properly with 'use client'
-import 'react-quill/dist/quill.snow.css';
 
 interface ApiResponse {
   status: string;
@@ -51,7 +55,7 @@ const SOPTester: React.FC = () => {
 
     try {
       const res = await apiClient.post(
-        "http://127.0.0.1:5003/api/generate_sop",
+        "/api/generate_sop",  // Use the relative path since baseURL is set in apiClient
         {
           prompt: promptToSend,
         },
