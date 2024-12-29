@@ -74,10 +74,6 @@ export default function Home() {
     setResponse(null);
 
     try {
-      if (!process.env.NEXT_PUBLIC_API_URL) {
-        throw new Error('API URL is not configured');
-      }
-      
       const res = await apiClient.post(
         "api/scrape_metadata",
         {
