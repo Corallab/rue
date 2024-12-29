@@ -75,7 +75,7 @@ export default function Home() {
 
     try {
       const res = await apiClient.post(
-        "api/scrape_metadata",
+        "/api/scrape_metadata",
         {
           input_string: inputString,
           custom_categories: categories.split(',').map((cat) => cat.trim()),
