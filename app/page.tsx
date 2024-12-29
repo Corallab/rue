@@ -17,6 +17,7 @@ import Policies from '@/components/Policies';
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from 'next/link';
 import IDentityChecks from '@/components/IDentityChecks';
+import apiClient from '@/utils/ApiClient';
 
 type SelectedFields = {
   type: boolean;
@@ -77,8 +78,8 @@ export default function Home() {
         throw new Error('API URL is not configured');
       }
       
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_API_URL,
+      const res = await apiClient.post(
+        "api/scrape_metadata",
         {
           input_string: inputString,
           custom_categories: categories.split(',').map((cat) => cat.trim()),
