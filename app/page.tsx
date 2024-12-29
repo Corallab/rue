@@ -9,7 +9,6 @@ import Pricing from '@/components/Pricing';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import { useState } from 'react';
-import axios from 'axios';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import AINotes from '@/components/AINotes';
